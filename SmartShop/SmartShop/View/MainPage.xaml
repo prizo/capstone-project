@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:SmartShop"
              x:Class="SmartShop.MainPage">
 
-	<Label Text="Welcome to Xamarin.Forms!" 
+	<Label Text="Welcome to Smart Shop!" 
            VerticalOptions="Center" 
            HorizontalOptions="Center" />
 
