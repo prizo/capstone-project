@@ -4,11 +4,5 @@
              x:Class="SmartShop.View.ScannerPage"
              Icon="ic_fullscreen_white.png"
              Title="Scanner">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Scanner Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+
 </ContentPage>
