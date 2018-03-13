@@ -1,13 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SmartShop.View.SearchPage"
              xmlns:vm="clr-namespace:SmartShop.ViewModel"
+             xmlns:behaviors="clr-namespace:SmartShop.Behaviors"
+             xmlns:converters="clr-namespace:SmartShop.Converters"
+             x:Class="SmartShop.View.SearchPage"
              Icon="ic_search_white.png"
              Title="Search">
     <ContentPage.BindingContext>
         <vm:SearchPageViewModel />
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemEventArgsToSelectedItemConverter
+                x:Key="SelectedItemConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <SearchBar
@@ -15,7 +23,14 @@
                 Placeholder="Search for a product"
                 SearchCommand="{Binding SearchCommand}"
                 SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}}" />
-            <ListView ItemsSource="{Binding Products}">
+            <ListView
+                ItemsSource="{Binding Products}">
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                        EventName="ItemSelected"
+                        Command="{Binding ItemSelectedCommand}"
+                        Converter="{StaticResource SelectedItemConverter}" />
+                </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell

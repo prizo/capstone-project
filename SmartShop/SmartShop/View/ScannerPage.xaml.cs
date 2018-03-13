@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing.Net.Mobile.Forms;
 
 namespace SmartShop.View
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ScannerPage : ContentPage
 	{
         ZXingScannerView zxing;
@@ -60,7 +54,7 @@ namespace SmartShop.View
             grid.Children.Add(zxing);
             grid.Children.Add(overlay);
 
-            // The root page of your application
+            // The root page of the application
             Content = grid;
 		}
 

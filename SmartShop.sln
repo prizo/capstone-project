@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartShop.Android", "SmartS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartShop.iOS", "SmartShop\SmartShop.iOS\SmartShop.iOS.csproj", "{2BEBCFF2-A289-45F1-8E5C-4403BC340A32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartShop", "SmartShop\SmartShop\SmartShop.csproj", "{B7F0B659-D9E9-470E-81E8-BC7728A55AB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartShop", "SmartShop\SmartShop\SmartShop.csproj", "{B7F0B659-D9E9-470E-81E8-BC7728A55AB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
