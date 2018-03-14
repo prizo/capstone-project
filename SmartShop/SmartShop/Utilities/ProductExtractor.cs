@@ -3,9 +3,9 @@ using SmartShop.Model;
 using System.Collections.Generic;
 using System.Web;
 
-namespace SmartShop
+namespace SmartShop.Utilities
 {
-    class ProductExtractor : IDataExtractor<Product>
+    class ProductExtractor
     {
         private HtmlDocument htmlDocument = new HtmlDocument();
         private List<Product> products = new List<Product>();
@@ -16,7 +16,7 @@ namespace SmartShop
         private HtmlNode node;
         private const string baseUri = "http://www.bing.com";
 
-        public IList<Product> ExtractData(string document)
+        public IList<Product> ExtractProducts(string document)
         {
             htmlDocument.LoadHtml(HttpUtility.HtmlDecode(document));
 
@@ -41,20 +41,36 @@ namespace SmartShop
             return products;
         }
 
+        public void ExtractDetails(Product product, string document)
+        {
+            htmlDocument.LoadHtml(HttpUtility.HtmlDecode(document));
+
+            product.Image = GetHigherResImage();
+            product.PrimaryOffer.Link = GetLink();
+            product.Details = GetDetails();
+        }
+
         private Product CreateProduct(int i)
         {
             Product p = new Product
             {
-                DataUrl = GetDataUrl(i),
+                DataURL = GetDataURL(i),
                 Image = GetImage(i),
                 Name = GetName(i),
-                Offer = GetPrice(i) + " " + GetSeller(i)
+                PrimaryOffer = new Vendor
+                {
+                    Name = GetSeller(i),
+                    ProductPrice = GetPrice(i),
+                    Link = ""
+                },
+                PriceSeller = GetPrice(i) + " " + GetSeller(i),
+                Details = ""
             };
 
             return p;
         }
 
-        private string GetDataUrl(int i)
+        private string GetDataURL(int i)
         {
             return itemNodes[i].GetAttributeValue("data-url", "");
         }
@@ -68,23 +84,46 @@ namespace SmartShop
 
         private string GetName(int i)
         {
-            node = itemNodes[i].SelectSingleNode(".//div[@class='br-productTitle br-title']") ??
+            node = infoNodes[i].SelectSingleNode(".//div[@class='br-productTitle br-title']") ??
                 itemNodes[i].SelectSingleNode(".//div[@class='br-pdItemName br-standardText']");
             return node.InnerHtml.Trim(); 
         }
 
+        private string GetPrice(int i)
+        {
+            node = infoNodes[i].SelectSingleNode(".//span[@class=' br-focusPrice']") ??
+                itemNodes[i].SelectSingleNode(".//div[@class='pd-price br-standardPrice promoted']");
+            return node.InnerHtml.Trim();
+        }
+
         private string GetSeller(int i)
         {
-            node = itemNodes[i].SelectSingleNode(".//span[@class='br-sellers']") ??
+            node = infoNodes[i].SelectSingleNode(".//span[@class='br-sellers']") ??
                 itemNodes[i].SelectSingleNode(".//div[@class='br-sellers']");
             return node.InnerHtml.Trim();
         }
 
-        private string GetPrice(int i)
+        private string GetHigherResImage()
         {
-            node = itemNodes[i].SelectSingleNode(".//span[@class=' br-focusPrice']") ??
-                itemNodes[i].SelectSingleNode(".//div[@class='pd-price br-standardPrice promoted']");
-            return node.InnerHtml.Trim();
+            node = htmlDocument.DocumentNode.SelectSingleNode(".//div[@class='cico br-expandedImg']");
+
+            string imgUri = node.FirstChild.GetAttributeValue("src", "");
+
+            return string.Concat(baseUri, imgUri);
+        }
+
+        private string GetLink()
+        {
+            node = htmlDocument.DocumentNode.SelectSingleNode(".//div[@class='br-pdHeader']");
+
+            return node.FirstChild.GetAttributeValue("href", "");
+        }
+
+        private string GetDetails()
+        {
+            node = htmlDocument.DocumentNode.SelectSingleNode(".//div[@class='br-pdDetailDesc br-standardText']");
+
+            return node == null ? "" : node.InnerHtml.Trim();
         }
     }
 }

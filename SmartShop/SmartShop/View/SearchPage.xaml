@@ -34,9 +34,9 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell
+                            ImageSource="{Binding Image}"
                             Text="{Binding Name}"
-                            Detail="{Binding Offer}"
-                            ImageSource="{Binding Image}" />
+                            Detail="{Binding PriceSeller}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartShop.View.ProductPage">
+    <ContentPage.Content>
+        <StackLayout
+            BackgroundColor="White"
+            Padding="10">
+            <Image
+                Source="{Binding DetailedProduct.Image}"
+                HeightRequest="200"
+                WidthRequest="200" />
+            <Label
+                Text="{Binding DetailedProduct.Name}"
+                HorizontalTextAlignment="Center" />
+            <Label
+                Text="{Binding DetailedProduct.PrimaryOffer.ProductPrice}" />
+            <Label
+                Text="{Binding DetailedProduct.PrimaryOffer.Name}" />
+            <StackLayout
+                Orientation="Horizontal"
+                HorizontalOptions="CenterAndExpand">
+                <Button
+                    Text="Shop" />
+                <Button
+                    Text="Save To List" />
+            </StackLayout>
+            <Label
+                Text="{Binding DetailedProduct.Details}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

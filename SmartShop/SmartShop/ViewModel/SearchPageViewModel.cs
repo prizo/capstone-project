@@ -1,5 +1,7 @@
 ﻿using SmartShop.Model;
+using SmartShop.Utilities;
 using SmartShop.View;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -41,12 +43,12 @@ namespace SmartShop.ViewModel
 
             if (query != null && query.Trim() != "")
             {
-                document = new BingWebRequest().SendRequest(query.Trim());
+                document = new BingWebRequest().SendRequest("/shop?q=" + Uri.EscapeDataString(query.Trim()));
             }
 
             if (document != null && document != "")
             {
-                products = new ProductExtractor().ExtractData(document);
+                products = new ProductExtractor().ExtractProducts(document);
             }
 
             if (products != null && products.Count > 0)
@@ -59,7 +61,19 @@ namespace SmartShop.ViewModel
 
         private void HandleItemSelected(Product product)
         {
-            Application.Current.MainPage.Navigation.PushModalAsync(new VendorPage());
+            string document = "";
+
+            if (product.DataURL != null && product.DataURL != "")
+            {
+                document = new BingWebRequest().SendRequest(product.DataURL);
+            }
+
+            if (document != null && document != "")
+            {
+                new ProductExtractor().ExtractDetails(product, document);
+            }
+
+            Application.Current.MainPage.Navigation.PushModalAsync(new ProductPage(product));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -31,7 +31,7 @@ namespace SmartShop.View
                     await DisplayAlert("Scanned Barcode", result.Text, "OK");
 
                     // Navigate away
-                    await Navigation.PushModalAsync(new VendorPage());
+                    await Navigation.PushModalAsync(new NotFoundPage());
                 });
 
             overlay = new ZXingDefaultOverlay

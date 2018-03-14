@@ -1,4 +1,4 @@
-﻿namespace SmartShop
+﻿namespace SmartShop.Utilities
 {
     interface IWebRequest
     {

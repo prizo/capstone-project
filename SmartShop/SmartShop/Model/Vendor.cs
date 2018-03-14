@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartShop.Model
+﻿namespace SmartShop.Model
 {
-    class Vendor
+    public class Vendor
     {
         public string Name { get; set; }
         public string ProductPrice { get; set; }
