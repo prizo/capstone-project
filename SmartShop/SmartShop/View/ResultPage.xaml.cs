@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace SmartShop.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ItemPage : ContentPage
+	public partial class ResultPage : ContentPage
 	{
-		public ItemPage ()
+		public ResultPage ()
 		{
 			InitializeComponent ();
 		}

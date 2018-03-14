@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SmartShop.Model;
+using SmartShop.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +12,12 @@ using Xamarin.Forms.Xaml;
 namespace SmartShop.View
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class VendorPage : ContentPage
+	public partial class ProductPage : ContentPage
 	{
-		public VendorPage ()
+		public ProductPage (Product product)
 		{
 			InitializeComponent ();
+            BindingContext = new ProductPageViewModel(product);
 		}
 	}
 }
