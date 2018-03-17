@@ -7,26 +7,28 @@
             BackgroundColor="White"
             Padding="10">
             <Image
-                Source="{Binding DetailedProduct.Image}"
+                Source="{Binding Product.Image}"
                 HeightRequest="200"
                 WidthRequest="200" />
             <Label
-                Text="{Binding DetailedProduct.Name}"
+                Text="{Binding Product.Name}"
                 HorizontalTextAlignment="Center" />
             <Label
-                Text="{Binding DetailedProduct.PrimaryOffer.ProductPrice}" />
+                Text="{Binding Product.Price}" />
             <Label
-                Text="{Binding DetailedProduct.PrimaryOffer.Name}" />
+                Text="{Binding Product.Seller}" />
             <StackLayout
                 Orientation="Horizontal"
                 HorizontalOptions="CenterAndExpand">
                 <Button
-                    Text="Shop" />
+                    Text="Shop"
+                    Command="{Binding ShopCommand}" />
                 <Button
-                    Text="Save To List" />
+                    Text="Save To List"
+                    Command="{Binding SaveCommand}" />
             </StackLayout>
             <Label
-                Text="{Binding DetailedProduct.Details}" />
+                Text="{Binding Product.Details}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

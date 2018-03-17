@@ -46,7 +46,7 @@ namespace SmartShop.Utilities
             htmlDocument.LoadHtml(HttpUtility.HtmlDecode(document));
 
             product.Image = GetHigherResImage();
-            product.PrimaryOffer.Link = GetLink();
+            product.Link = GetLink();
             product.Details = GetDetails();
         }
 
@@ -57,13 +57,10 @@ namespace SmartShop.Utilities
                 DataURL = GetDataURL(i),
                 Image = GetImage(i),
                 Name = GetName(i),
-                PrimaryOffer = new Vendor
-                {
-                    Name = GetSeller(i),
-                    ProductPrice = GetPrice(i),
-                    Link = ""
-                },
+                Price = GetPrice(i),
+                Seller = GetSeller(i),
                 PriceSeller = GetPrice(i) + " " + GetSeller(i),
+                Link = "",
                 Details = ""
             };
 
