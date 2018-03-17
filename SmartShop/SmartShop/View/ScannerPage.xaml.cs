@@ -67,7 +67,7 @@ namespace SmartShop.View
 
         protected override void OnDisappearing()
         {
-            zxing.IsScanning = false;
+            //zxing.IsScanning = false;
 
             base.OnDisappearing();
         }
