@@ -34,6 +34,9 @@ namespace SmartShop.ViewModel
             }
         }
 
+        public ObservableCollection<string> SortOptions { get; set; } = 
+            new ObservableCollection<string>(new List<string> { "Name", "Price", "Seller" });
+
         public ICommand SearchCommand { get; private set; }
 
         private void HandleSearch(string query)
