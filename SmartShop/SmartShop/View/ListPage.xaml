@@ -3,22 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SmartShop.ViewModel"
              x:Class="SmartShop.View.ListPage"
-             Icon="ic_list_white.png"
+             x:Name="ListPage"
+             Icon="ic_format_list_bulleted_white_24dp.png"
              Title="My List">
     <ContentPage.BindingContext>
         <vm:ListPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout
+            Padding="10">
+            <StackLayout
+                Orientation="Horizontal">
+                <Label
+                    Text="Sort by"
+                    VerticalTextAlignment="Center" />
+                <Picker
+                    ItemsSource="{Binding SortOptions}"
+                    WidthRequest="75" />
+            </StackLayout>
             <ListView
                 ItemsSource="{Binding Products}"
-                IsPullToRefreshEnabled="True">
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                IsRefreshing="{Binding IsRefreshing}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ImageCell
+                        <ImageCell                        
                             ImageSource="{Binding Image}"
                             Text="{Binding Name}"
-                            Detail="{Binding PriceSeller}" />
+                            Detail="{Binding PriceSeller}">
+                            <ImageCell.ContextActions>
+                                <MenuItem
+                                    Text="Delete"
+                                    IsDestructive="True"
+                                    Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference ListPage}}"
+                                    CommandParameter="{Binding .}" />
+                            </ImageCell.ContextActions>
+                        </ImageCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

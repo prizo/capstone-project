@@ -5,7 +5,7 @@
              xmlns:behaviors="clr-namespace:SmartShop.Behaviors"
              xmlns:converters="clr-namespace:SmartShop.Converters"
              x:Class="SmartShop.View.SearchPage"
-             Icon="ic_search_white.png"
+             Icon="ic_search_white_24dp.png"
              Title="Search">
     <ContentPage.BindingContext>
         <vm:SearchPageViewModel />
@@ -17,12 +17,22 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout
+            Padding="10">
             <SearchBar
                 x:Name="SearchBar"
                 Placeholder="Search for a product"
                 SearchCommand="{Binding SearchCommand}"
                 SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}}" />
+            <StackLayout
+                Orientation="Horizontal">
+                <Label
+                    Text="Sort by"
+                    VerticalTextAlignment="Center" />
+                <Picker
+                    ItemsSource="{Binding SortOptions}"
+                    WidthRequest="75" />
+            </StackLayout>
             <ListView
                 ItemsSource="{Binding Products}">
                 <ListView.Behaviors>

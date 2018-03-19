@@ -34,16 +34,19 @@ namespace SmartShop.ViewModel
             }
         }
 
+        public ObservableCollection<string> SortOptions { get; set; } = 
+            new ObservableCollection<string>(new List<string> { "Name", "Price", "Seller" });
+
         public ICommand SearchCommand { get; private set; }
 
-        private void HandleSearch(string query)
+        private void HandleSearch(string text)
         {
             string document = "";
             IList<Product> products = null;
 
-            if (query != null && query.Trim() != "")
+            if (text != null && text.Trim() != "")
             {
-                document = new BingWebRequest().SendRequest("/shop?q=" + Uri.EscapeDataString(query.Trim()));
+                document = new BingWebRequest().SendRequest("/shop?q=" + Uri.EscapeDataString(text.Trim()));
             }
 
             if (document != null && document != "")

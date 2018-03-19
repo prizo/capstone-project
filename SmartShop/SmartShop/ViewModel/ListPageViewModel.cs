@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace SmartShop.ViewModel
 {
@@ -11,6 +13,23 @@ namespace SmartShop.ViewModel
         public ListPageViewModel()
         {
             PopulateProducts();
+            RefreshCommand = new Command(HandleRefresh);
+            DeleteCommand = new Command<Product>(HandleDelete);
+        }
+
+        private bool _isRefreshing = false;
+        
+        public bool IsRefreshing
+        {
+            get
+            {
+                return _isRefreshing;
+            }
+            set
+            {
+                _isRefreshing = value;
+                OnPropertyChanged();
+            }
         }
 
         private ObservableCollection<Product> _products;
@@ -27,7 +46,10 @@ namespace SmartShop.ViewModel
                 OnPropertyChanged();
             }
         }
-        
+
+        public ObservableCollection<string> SortOptions { get; set; } =
+            new ObservableCollection<string>(new List<string> { "Name", "Price", "Seller" });
+
         private async void PopulateProducts()
         {
             List<Product> products = await App.Database.GetProductsAsync();
@@ -36,6 +58,28 @@ namespace SmartShop.ViewModel
             {
                 Products = new ObservableCollection<Product>(products);
             }
+        }
+
+        public ICommand RefreshCommand { get; private set; }
+
+        private void HandleRefresh()
+        {
+            IsRefreshing = true;
+
+            PopulateProducts();
+
+            IsRefreshing = false;
+        }
+
+        public ICommand DeleteCommand { get; private set; }
+
+        private void HandleDelete(Product product)
+        {
+            // Delete product from database
+            App.Database.DeleteProductAsync(product);
+
+            // Delete product from observable collection
+            Products.Remove(product);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

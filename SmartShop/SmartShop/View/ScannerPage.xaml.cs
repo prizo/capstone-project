@@ -12,7 +12,7 @@ namespace SmartShop.View
 
         public ScannerPage () : base ()
 		{
-            Icon = "ic_fullscreen_white.png";
+            Icon = "ic_crop_free_white_24dp.png";
             Title = "Scanner";
 
 			zxing = new ZXingScannerView
