@@ -14,6 +14,7 @@ namespace SmartShop.ViewModel
         {
             PopulateProducts();
             RefreshCommand = new Command(HandleRefresh);
+            DeleteCommand = new Command<Product>(HandleDelete);
         }
 
         private bool _isRefreshing = false;
@@ -68,6 +69,17 @@ namespace SmartShop.ViewModel
             PopulateProducts();
 
             IsRefreshing = false;
+        }
+
+        public ICommand DeleteCommand { get; private set; }
+
+        private void HandleDelete(Product product)
+        {
+            // Delete product from database
+            App.Database.DeleteProductAsync(product);
+
+            // Delete product from observable collection
+            Products.Remove(product);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
