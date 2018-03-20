@@ -35,7 +35,26 @@ namespace SmartShop.ViewModel
         }
 
         public ObservableCollection<string> SortOptions { get; set; } = 
-            new ObservableCollection<string>(new List<string> { "Name", "Price", "Seller" });
+            new ObservableCollection<string>(new List<string> { "Name", "Price: Low to High", "Price: High to Low", "Seller" });
+
+        private string _selectedOption;
+
+        public string SelectedOption
+        {
+            get
+            {
+                return _selectedOption;
+            }
+            set
+            {
+                _selectedOption = value;
+                if (value != null)
+                {
+                    Products = ProductSorter.Sort(value, new List<Product>(Products));
+                }
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand SearchCommand { get; private set; }
 
@@ -57,6 +76,7 @@ namespace SmartShop.ViewModel
             if (products != null && products.Count > 0)
             {
                 Products = new ObservableCollection<Product>(products);
+                SelectedOption = null;
             }
         }
 
@@ -76,7 +96,7 @@ namespace SmartShop.ViewModel
                 new ProductExtractor().ExtractDetails(product, document);
             }
 
-            Application.Current.MainPage.Navigation.PushModalAsync(new ProductPage(product));
+            Application.Current.MainPage.Navigation.PushModalAsync(new ProductPage(product, true));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

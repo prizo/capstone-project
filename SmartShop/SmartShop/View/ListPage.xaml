@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SmartShop.ViewModel"
+             xmlns:behaviors="clr-namespace:SmartShop.Behaviors"
+             xmlns:converters="clr-namespace:SmartShop.Converters"
              x:Class="SmartShop.View.ListPage"
              x:Name="ListPage"
              Icon="ic_format_list_bulleted_white_24dp.png"
@@ -9,6 +11,12 @@
     <ContentPage.BindingContext>
         <vm:ListPageViewModel />
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemEventArgsToSelectedItemConverter
+                x:Key="SelectedItemConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout
             Padding="10">
@@ -19,16 +27,23 @@
                     VerticalTextAlignment="Center" />
                 <Picker
                     ItemsSource="{Binding SortOptions}"
-                    WidthRequest="75" />
+                    SelectedItem="{Binding SelectedOption}"
+                    WidthRequest="175" />
             </StackLayout>
             <ListView
                 ItemsSource="{Binding Products}"
                 IsPullToRefreshEnabled="True"
                 RefreshCommand="{Binding RefreshCommand}"
                 IsRefreshing="{Binding IsRefreshing}">
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                        EventName="ItemSelected"
+                        Command="{Binding ItemSelectedCommand}"
+                        Converter="{StaticResource SelectedItemConverter}" />
+                </ListView.Behaviors>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ImageCell                        
+                        <ImageCell
                             ImageSource="{Binding Image}"
                             Text="{Binding Name}"
                             Detail="{Binding PriceSeller}">

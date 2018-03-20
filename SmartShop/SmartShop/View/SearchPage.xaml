@@ -31,7 +31,8 @@
                     VerticalTextAlignment="Center" />
                 <Picker
                     ItemsSource="{Binding SortOptions}"
-                    WidthRequest="75" />
+                    SelectedItem="{Binding SelectedOption}"
+                    WidthRequest="175" />
             </StackLayout>
             <ListView
                 ItemsSource="{Binding Products}">

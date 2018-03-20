@@ -1,4 +1,6 @@
 ﻿using SmartShop.Model;
+using SmartShop.Utilities;
+using SmartShop.View;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,9 +14,10 @@ namespace SmartShop.ViewModel
     {
         public ListPageViewModel()
         {
-            PopulateProducts();
+            ItemSelectedCommand = new Command<Product>(HandleItemSelected);
             RefreshCommand = new Command(HandleRefresh);
             DeleteCommand = new Command<Product>(HandleDelete);
+            PopulateProducts();
         }
 
         private bool _isRefreshing = false;
@@ -48,7 +51,26 @@ namespace SmartShop.ViewModel
         }
 
         public ObservableCollection<string> SortOptions { get; set; } =
-            new ObservableCollection<string>(new List<string> { "Name", "Price", "Seller" });
+            new ObservableCollection<string>(new List<string> { "Name", "Price: Low to High", "Price: High to Low", "Seller" });
+
+        private string _selectedOption;
+
+        public string SelectedOption
+        {
+            get
+            {
+                return _selectedOption;
+            }
+            set
+            {
+                _selectedOption = value;
+                if (value != null)
+                {
+                    Products = ProductSorter.Sort(value, new List<Product>(Products));
+                }
+                OnPropertyChanged();
+            }
+        }
 
         private async void PopulateProducts()
         {
@@ -60,6 +82,25 @@ namespace SmartShop.ViewModel
             }
         }
 
+        public ICommand ItemSelectedCommand { get; private set; }
+
+        private void HandleItemSelected(Product product)
+        {
+            string document = "";
+
+            if (product.DataURL != null && product.DataURL != "")
+            {
+                document = new BingWebRequest().SendRequest(product.DataURL);
+            }
+
+            if (document != null && document != "")
+            {
+                new ProductExtractor().ExtractDetails(product, document);
+            }
+
+            Application.Current.MainPage.Navigation.PushModalAsync(new ProductPage(product, false));
+        }
+
         public ICommand RefreshCommand { get; private set; }
 
         private void HandleRefresh()
@@ -67,6 +108,7 @@ namespace SmartShop.ViewModel
             IsRefreshing = true;
 
             PopulateProducts();
+            SelectedOption = null;
 
             IsRefreshing = false;
         }
