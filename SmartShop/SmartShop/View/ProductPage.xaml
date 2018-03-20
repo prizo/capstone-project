@@ -3,32 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SmartShop.View.ProductPage">
     <ContentPage.Content>
-        <StackLayout
-            BackgroundColor="White"
-            Padding="10">
-            <Image
-                Source="{Binding Product.Image}"
-                HeightRequest="200"
-                WidthRequest="200" />
-            <Label
-                Text="{Binding Product.Name}"
-                HorizontalTextAlignment="Center" />
-            <Label
-                Text="{Binding Product.Price}" />
-            <Label
-                Text="{Binding Product.Seller}" />
+        <ScrollView>
             <StackLayout
-                Orientation="Horizontal"
-                HorizontalOptions="CenterAndExpand">
-                <Button
-                    Text="Shop"
-                    Command="{Binding ShopCommand}" />
-                <Button
-                    Text="Save To List"
-                    Command="{Binding SaveCommand}" />
+                BackgroundColor="White"
+                Padding="10">
+                <Image
+                    Source="{Binding Product.Image}"
+                    HeightRequest="200"
+                    WidthRequest="200" />
+                <Label
+                    Text="{Binding Product.Name}"
+                    HorizontalTextAlignment="Center" />
+                <Label
+                    Text="{Binding Product.Price, StringFormat='${0:F2}'}" />
+                <Label
+                    Text="{Binding Product.Seller}" />
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="CenterAndExpand">
+                    <Button
+                        Text="Shop"
+                        Command="{Binding ShopCommand}" />
+                    <Button
+                        Text="{Binding SaveText}"
+                        Command="{Binding SaveCommand}"
+                        IsEnabled="{Binding IsEnabled}" />
+                </StackLayout>
+                <Label
+                    Text="{Binding Product.Details}" />
             </StackLayout>
-            <Label
-                Text="{Binding Product.Details}" />
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

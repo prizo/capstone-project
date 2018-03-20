@@ -8,10 +8,10 @@ namespace SmartShop.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProductPage : ContentPage
 	{
-		public ProductPage (Product product)
+		public ProductPage (Product product, bool isEnabled)
 		{
 			InitializeComponent ();
-            BindingContext = new ProductPageViewModel(product);
+            BindingContext = new ProductPageViewModel(product, isEnabled);
 		}
 	}
 }

@@ -9,7 +9,7 @@ namespace SmartShop.Model
         public string DataURL { get; set; }
         public string Image { get; set; }
         public string Name { get; set; }
-        public string Price { get; set; }
+        public decimal Price { get; set; }
         public string Seller { get; set; }
         public string PriceSeller { get; set; }
         public string Link { get; set; }

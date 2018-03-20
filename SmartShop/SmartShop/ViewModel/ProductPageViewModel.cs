@@ -7,14 +7,31 @@ namespace SmartShop.ViewModel
 {
     class ProductPageViewModel
     {
-        public Product Product { get; set; }
-
-        public ProductPageViewModel(Product product)
+        public ProductPageViewModel(Product product, bool isEnabled)
         {
             Product = product;
+            IsEnabled = isEnabled;
             ShopCommand = new Command(HandleShop);
             SaveCommand = new Command(HandleSave);
         }
+
+        public Product Product { get; set; }
+
+        private string _saveText;
+
+        public string SaveText
+        {
+            get
+            {
+                return IsEnabled ? "Save To List" : "Saved \u2714";
+            }
+            set
+            {
+                _saveText = value;
+            }
+        }
+
+        public bool IsEnabled { get; set; }
 
         public ICommand ShopCommand { get; private set; }
 
@@ -28,6 +45,7 @@ namespace SmartShop.ViewModel
         private void HandleSave()
         {
             App.Database.SaveProductAsync(Product);
+
             Application.Current.MainPage.DisplayAlert("", "Product saved!", "OK");
         }
 

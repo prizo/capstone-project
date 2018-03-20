@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using SmartShop.Model;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Web;
 
 namespace SmartShop.Utilities
@@ -59,7 +60,7 @@ namespace SmartShop.Utilities
                 Name = GetName(i),
                 Price = GetPrice(i),
                 Seller = GetSeller(i),
-                PriceSeller = GetPrice(i) + " " + GetSeller(i),
+                PriceSeller = "$" + GetPrice(i) + " " + GetSeller(i),
                 Link = "",
                 Details = ""
             };
@@ -86,11 +87,11 @@ namespace SmartShop.Utilities
             return node.InnerHtml.Trim(); 
         }
 
-        private string GetPrice(int i)
+        private decimal GetPrice(int i)
         {
             node = infoNodes[i].SelectSingleNode(".//span[@class=' br-focusPrice']") ??
                 itemNodes[i].SelectSingleNode(".//div[@class='pd-price br-standardPrice promoted']");
-            return node.InnerHtml.Trim();
+            return decimal.Parse(node.InnerHtml.Trim(), NumberStyles.Currency);
         }
 
         private string GetSeller(int i)
