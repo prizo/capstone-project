@@ -17,21 +17,21 @@ namespace SmartShop.ViewModel
 
         public Product Product { get; set; }
 
+        public bool IsEnabled { get; set; }
+
         private string _saveText;
 
         public string SaveText
         {
             get
             {
-                return IsEnabled ? "Save To List" : "Saved \u2714";
+                return IsEnabled ? "Save To List" : "Saved";
             }
             set
             {
                 _saveText = value;
             }
         }
-
-        public bool IsEnabled { get; set; }
 
         public ICommand ShopCommand { get; private set; }
 

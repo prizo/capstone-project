@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:SmartShop.ViewModel"
              xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              x:Class="SmartShop.View.ScannerPage"
-             Icon="ic_crop_free_white_24dp.png"
+             Icon="ic_crop_free_white.png"
              Title="Scanner">
     <ContentPage.BindingContext>
         <vm:ScannerPageViewModel />
@@ -17,8 +17,14 @@
                 <forms:ZXingScannerView
                     IsScanning="{Binding IsScanning}"
                     IsAnalyzing="{Binding IsAnalyzing}"
+                    IsTorchOn="{Binding IsTorchOn}"
                     Result="{Binding Result, Mode=TwoWay}"
                     ScanResultCommand="{Binding ScanResultCommand}" />
+                <!--
+                <forms:ZXingDefaultOverlay
+                    ShowFlashButton="False" 
+                    Opacity="0.9" />
+                -->
             </Grid>
             <StackLayout
                 Padding="10"

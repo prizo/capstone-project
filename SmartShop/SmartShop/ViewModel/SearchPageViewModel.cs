@@ -65,7 +65,8 @@ namespace SmartShop.ViewModel
 
             if (text != null && text.Trim() != "")
             {
-                document = new BingWebRequest().SendRequest("/shop?q=" + Uri.EscapeDataString(text.Trim()));
+                string query = Uri.EscapeDataString(text.Trim());
+                document = BingWebRequest.SendRequest("/shop?q=" + query);
             }
 
             if (document != null && document != "")
@@ -73,7 +74,7 @@ namespace SmartShop.ViewModel
                 products = new ProductExtractor().ExtractProducts(document);
             }
 
-            if (products != null && products.Count > 0)
+            if (products != null && products.Count > 0) // TODO: Display 'not found' alert if products is empty
             {
                 Products = new ObservableCollection<Product>(products);
                 SelectedOption = null;
@@ -88,7 +89,7 @@ namespace SmartShop.ViewModel
 
             if (product.DataURL != null && product.DataURL != "")
             {
-                document = new BingWebRequest().SendRequest(product.DataURL);
+                document = BingWebRequest.SendRequest(product.DataURL);
             }
 
             if (document != null && document != "")

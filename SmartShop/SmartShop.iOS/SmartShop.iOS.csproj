@@ -126,6 +126,15 @@
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.7.1</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.CSharp">
+      <Version>4.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="RestSharp">
+      <Version>106.2.1</Version>
+    </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.4.118</Version>
     </PackageReference>
@@ -207,13 +216,13 @@
     <BundleResource Include="Resources\ic_crop_free_white_3x.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\ic_format_list_bulleted_white_3x.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Resources\ic_format_list_bulleted_white.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_format_list_bulleted_white_2x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_format_list_bulleted_white_3x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_photo_camera_white.png" />

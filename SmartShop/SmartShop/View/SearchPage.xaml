@@ -5,7 +5,7 @@
              xmlns:behaviors="clr-namespace:SmartShop.Behaviors"
              xmlns:converters="clr-namespace:SmartShop.Converters"
              x:Class="SmartShop.View.SearchPage"
-             Icon="ic_search_white_24dp.png"
+             Icon="ic_search_white.png"
              Title="Search">
     <ContentPage.BindingContext>
         <vm:SearchPageViewModel />

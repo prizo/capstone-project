@@ -90,7 +90,7 @@ namespace SmartShop.ViewModel
 
             if (product.DataURL != null && product.DataURL != "")
             {
-                document = new BingWebRequest().SendRequest(product.DataURL);
+                document = BingWebRequest.SendRequest(product.DataURL);
             }
 
             if (document != null && document != "")

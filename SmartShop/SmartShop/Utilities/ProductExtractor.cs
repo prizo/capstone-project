@@ -25,6 +25,8 @@ namespace SmartShop.Utilities
             itemNodes = htmlDocument.DocumentNode.SelectNodes("//div[@class='br-item']") ??
                 htmlDocument.DocumentNode.SelectNodes("//li[@class='br-item']");
 
+            if (itemNodes == null) return null;
+
             numOfProducts = itemNodes.Count;
 
             // Get nodes with images nested inside
