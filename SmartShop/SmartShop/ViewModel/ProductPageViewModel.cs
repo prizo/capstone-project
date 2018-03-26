@@ -11,6 +11,7 @@ namespace SmartShop.ViewModel
         {
             Product = product;
             IsEnabled = isEnabled;
+            BackCommand = new Command(HandleBack);
             ShopCommand = new Command(HandleShop);
             SaveCommand = new Command(HandleSave);
         }
@@ -31,6 +32,13 @@ namespace SmartShop.ViewModel
             {
                 _saveText = value;
             }
+        }
+
+        public ICommand BackCommand { get; private set; }
+
+        private async void HandleBack()
+        {
+            await Application.Current.MainPage.Navigation.PopModalAsync();
         }
 
         public ICommand ShopCommand { get; private set; }

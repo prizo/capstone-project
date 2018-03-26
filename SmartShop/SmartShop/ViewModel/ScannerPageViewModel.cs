@@ -69,8 +69,8 @@ namespace SmartShop.ViewModel
 
         private void HandleScanResult()
         {
-            IsScanning = false;
-            IsAnalyzing = false;
+            //IsScanning = false;
+            //IsAnalyzing = false;
 
             IList<Product> products = null;
             string query = Result.Text.Trim();
@@ -86,7 +86,8 @@ namespace SmartShop.ViewModel
             {
                 if (products != null && products.Count > 0)
                 {
-                    await Application.Current.MainPage.Navigation.PushModalAsync(new ResultPage(products));
+                    await Application.Current.MainPage.Navigation.
+                        PushModalAsync(new NavigationPage(new ResultPage(products)));
                 }
                 else
                 {

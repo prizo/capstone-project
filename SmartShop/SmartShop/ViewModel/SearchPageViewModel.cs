@@ -19,6 +19,21 @@ namespace SmartShop.ViewModel
             ItemSelectedCommand = new Command<Product>(HandleItemSelected);
         }
 
+        private Product _selectedItem;
+
+        public Product SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged();
+            }
+        }
+
         private ObservableCollection<Product> _products;
 
         public ObservableCollection<Product> Products
@@ -83,21 +98,27 @@ namespace SmartShop.ViewModel
 
         public ICommand ItemSelectedCommand { get; private set; }
 
-        private void HandleItemSelected(Product product)
+        private async void HandleItemSelected(Product product)
         {
-            string document = "";
-
-            if (product.DataURL != null && product.DataURL != "")
+            if (SelectedItem != null)
             {
-                document = BingWebRequest.SendRequest(product.DataURL);
-            }
+                SelectedItem = null;
 
-            if (document != null && document != "")
-            {
-                new ProductExtractor().ExtractDetails(product, document);
-            }
+                string document = "";
 
-            Application.Current.MainPage.Navigation.PushModalAsync(new ProductPage(product, true));
+                if (product.DataURL != null && product.DataURL != "")
+                {
+                    document = BingWebRequest.SendRequest(product.DataURL);
+                }
+
+                if (document != null && document != "")
+                {
+                    new ProductExtractor().ExtractDetails(product, document);
+                }
+
+                await Application.Current.MainPage.Navigation.
+                    PushModalAsync(new NavigationPage(new ProductPage(product, true)));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

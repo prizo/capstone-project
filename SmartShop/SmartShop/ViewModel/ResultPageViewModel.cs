@@ -15,7 +15,23 @@ namespace SmartShop.ViewModel
         public ResultPageViewModel(IList<Product> products)
         {
             Products = new ObservableCollection<Product>(products);
+            BackCommand = new Command(HandleBack);
             ItemSelectedCommand = new Command<Product>(HandleItemSelected);
+        }
+
+        private Product _selectedItem;
+
+        public Product SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged();
+            }
         }
 
         private ObservableCollection<Product> _products;
@@ -55,11 +71,24 @@ namespace SmartShop.ViewModel
             }
         }
 
+        public ICommand BackCommand { get; private set; }
+
+        private async void HandleBack()
+        {
+            await Application.Current.MainPage.Navigation.PopModalAsync();
+        }
+
         public ICommand ItemSelectedCommand { get; private set; }
 
-        private void HandleItemSelected(Product product)
+        private async void HandleItemSelected(Product product)
         {
-            Application.Current.MainPage.Navigation.PushModalAsync(new ProductPage(product, true));
+            if (SelectedItem != null)
+            {
+                SelectedItem = null;
+
+                await Application.Current.MainPage.Navigation.
+                    PushModalAsync(new NavigationPage(new ProductPage(product, true)));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

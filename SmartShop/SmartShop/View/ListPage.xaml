@@ -34,7 +34,8 @@
                 ItemsSource="{Binding Products}"
                 IsPullToRefreshEnabled="True"
                 RefreshCommand="{Binding RefreshCommand}"
-                IsRefreshing="{Binding IsRefreshing}">
+                IsRefreshing="{Binding IsRefreshing}"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                 <ListView.Behaviors>
                     <behaviors:EventToCommandBehavior
                         EventName="ItemSelected"

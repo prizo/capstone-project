@@ -10,6 +10,12 @@
                 x:Key="SelectedItemConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Order="Primary"
+            Text="Back"
+            Command="{Binding BackCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout
             Padding="10">
@@ -24,7 +30,8 @@
                     WidthRequest="175" />
             </StackLayout>
             <ListView
-                ItemsSource="{Binding Products}">
+                ItemsSource="{Binding Products}"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                 <ListView.Behaviors>
                     <behaviors:EventToCommandBehavior
                         EventName="ItemSelected"
