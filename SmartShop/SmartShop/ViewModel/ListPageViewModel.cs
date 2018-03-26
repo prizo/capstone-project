@@ -35,6 +35,21 @@ namespace SmartShop.ViewModel
             }
         }
 
+        private Product _selectedItem;
+
+        public Product SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged();
+            }
+        }
+
         private ObservableCollection<Product> _products;
 
         public ObservableCollection<Product> Products
@@ -84,21 +99,15 @@ namespace SmartShop.ViewModel
 
         public ICommand ItemSelectedCommand { get; private set; }
 
-        private void HandleItemSelected(Product product)
+        private async void HandleItemSelected(Product product)
         {
-            string document = "";
-
-            if (product.DataURL != null && product.DataURL != "")
+            if (SelectedItem != null)
             {
-                document = new BingWebRequest().SendRequest(product.DataURL);
-            }
+                SelectedItem = null;
 
-            if (document != null && document != "")
-            {
-                new ProductExtractor().ExtractDetails(product, document);
+                await Application.Current.MainPage.Navigation.
+                    PushModalAsync(new NavigationPage(new ProductPage(product, false)));
             }
-
-            Application.Current.MainPage.Navigation.PushModalAsync(new ProductPage(product, false));
         }
 
         public ICommand RefreshCommand { get; private set; }

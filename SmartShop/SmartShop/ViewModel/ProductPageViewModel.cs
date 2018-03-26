@@ -11,11 +11,14 @@ namespace SmartShop.ViewModel
         {
             Product = product;
             IsEnabled = isEnabled;
+            BackCommand = new Command(HandleBack);
             ShopCommand = new Command(HandleShop);
             SaveCommand = new Command(HandleSave);
         }
 
         public Product Product { get; set; }
+
+        public bool IsEnabled { get; set; }
 
         private string _saveText;
 
@@ -23,7 +26,7 @@ namespace SmartShop.ViewModel
         {
             get
             {
-                return IsEnabled ? "Save To List" : "Saved \u2714";
+                return IsEnabled ? "Save To List" : "Saved";
             }
             set
             {
@@ -31,7 +34,12 @@ namespace SmartShop.ViewModel
             }
         }
 
-        public bool IsEnabled { get; set; }
+        public ICommand BackCommand { get; private set; }
+
+        private async void HandleBack()
+        {
+            await Application.Current.MainPage.Navigation.PopModalAsync();
+        }
 
         public ICommand ShopCommand { get; private set; }
 

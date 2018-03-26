@@ -6,7 +6,7 @@
              xmlns:converters="clr-namespace:SmartShop.Converters"
              x:Class="SmartShop.View.ListPage"
              x:Name="ListPage"
-             Icon="ic_format_list_bulleted_white_24dp.png"
+             Icon="ic_format_list_bulleted_white.png"
              Title="My List">
     <ContentPage.BindingContext>
         <vm:ListPageViewModel />
@@ -34,7 +34,8 @@
                 ItemsSource="{Binding Products}"
                 IsPullToRefreshEnabled="True"
                 RefreshCommand="{Binding RefreshCommand}"
-                IsRefreshing="{Binding IsRefreshing}">
+                IsRefreshing="{Binding IsRefreshing}"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                 <ListView.Behaviors>
                     <behaviors:EventToCommandBehavior
                         EventName="ItemSelected"

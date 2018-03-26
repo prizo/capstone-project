@@ -1,12 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:SmartShop.Behaviors"
+             xmlns:converters="clr-namespace:SmartShop.Converters"
              x:Class="SmartShop.View.ResultPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemEventArgsToSelectedItemConverter
+                x:Key="SelectedItemConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Order="Primary"
+            Text="Back"
+            Command="{Binding BackCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout
+            Padding="10">
+            <StackLayout
+                Orientation="Horizontal">
+                <Label
+                    Text="Sort by"
+                    VerticalTextAlignment="Center" />
+                <Picker
+                    ItemsSource="{Binding SortOptions}"
+                    SelectedItem="{Binding SelectedOption}"
+                    WidthRequest="175" />
+            </StackLayout>
+            <ListView
+                ItemsSource="{Binding Products}"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                        EventName="ItemSelected"
+                        Command="{Binding ItemSelectedCommand}"
+                        Converter="{StaticResource SelectedItemConverter}" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell
+                            ImageSource="{Binding Image}"
+                            Text="{Binding Name}"
+                            Detail="{Binding PriceSeller}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

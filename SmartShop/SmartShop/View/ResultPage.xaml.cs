@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SmartShop.Model;
+using SmartShop.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +14,10 @@ namespace SmartShop.View
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ResultPage : ContentPage
 	{
-		public ResultPage ()
+		public ResultPage (IList<Product> products)
 		{
 			InitializeComponent ();
+            BindingContext = new ResultPageViewModel(products);
 		}
 	}
 }

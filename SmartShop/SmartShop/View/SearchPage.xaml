@@ -5,7 +5,7 @@
              xmlns:behaviors="clr-namespace:SmartShop.Behaviors"
              xmlns:converters="clr-namespace:SmartShop.Converters"
              x:Class="SmartShop.View.SearchPage"
-             Icon="ic_search_white_24dp.png"
+             Icon="ic_search_white.png"
              Title="Search">
     <ContentPage.BindingContext>
         <vm:SearchPageViewModel />
@@ -35,7 +35,8 @@
                     WidthRequest="175" />
             </StackLayout>
             <ListView
-                ItemsSource="{Binding Products}">
+                ItemsSource="{Binding Products}"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                 <ListView.Behaviors>
                     <behaviors:EventToCommandBehavior
                         EventName="ItemSelected"
