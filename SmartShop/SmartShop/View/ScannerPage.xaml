@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartShop.ViewModel"
+             xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             x:Class="SmartShop.View.ScannerPage"
+             Icon="ic_crop_free_white.png"
+             Title="Scanner">
+    <ContentPage.BindingContext>
+        <vm:ScannerPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <forms:ZXingScannerView
+                    IsScanning="{Binding IsScanning}"
+                    IsAnalyzing="{Binding IsAnalyzing}"
+                    IsTorchOn="{Binding IsTorchOn}"
+                    Result="{Binding Result, Mode=TwoWay}"
+                    ScanResultCommand="{Binding ScanResultCommand}" />
+                <!--
+                <forms:ZXingDefaultOverlay
+                    ShowFlashButton="False" 
+                    Opacity="0.9" />
+                -->
+            </Grid>
+            <StackLayout
+                Padding="10"
+                Orientation="Horizontal">
+                <Button
+                    Text="{Binding FlashText}"
+                    TextColor="Gray"
+                    BackgroundColor="Transparent"
+                    Command="{Binding FlashCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center" />
+                <Label
+                    Text="Hold your phone up to the barcode"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

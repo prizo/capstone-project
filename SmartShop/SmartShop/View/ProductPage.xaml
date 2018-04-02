@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartShop.View.ProductPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Order="Primary"
+            Text="Back"
+            Command="{Binding BackCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout
+                BackgroundColor="White"
+                Padding="10">
+                <Image
+                    Source="{Binding Product.Image}"
+                    HeightRequest="200"
+                    WidthRequest="200" />
+                <Label
+                    Text="{Binding Product.Name}"
+                    HorizontalTextAlignment="Center" />
+                <Label
+                    Text="{Binding Product.Price, StringFormat='${0:F2}'}" />
+                <Label
+                    Text="{Binding Product.Seller}" />
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="CenterAndExpand">
+                    <Button
+                        Text="Shop"
+                        Command="{Binding ShopCommand}" />
+                    <Button
+                        Text="{Binding SaveText}"
+                        Command="{Binding SaveCommand}"
+                        IsEnabled="{Binding IsEnabled}" />
+                </StackLayout>
+                <Label
+                    Text="{Binding Product.Details}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

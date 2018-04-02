@@ -1,19 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using SmartShop.Data;
 using Xamarin.Forms;
 
 namespace SmartShop
 {
-	public partial class App : Application
+    public partial class App : Application
 	{
+        static ProductDatabase database;
+
+        public static ProductDatabase Database
+        {
+            get
+            {
+                if (database == null)
+                {
+                    database = new ProductDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("ProductSQLite.db3"));
+                }
+                return database;
+            }
+        }
+
 		public App ()
 		{
 			InitializeComponent();
 
-			MainPage = new SmartShop.MainPage();
+			MainPage = new MainPage();
 		}
 
 		protected override void OnStart ()

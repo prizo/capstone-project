@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartShop.ViewModel"
+             xmlns:behaviors="clr-namespace:SmartShop.Behaviors"
+             xmlns:converters="clr-namespace:SmartShop.Converters"
+             x:Class="SmartShop.View.ListPage"
+             x:Name="ListPage"
+             Icon="ic_format_list_bulleted_white.png"
+             Title="My List">
+    <ContentPage.BindingContext>
+        <vm:ListPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemEventArgsToSelectedItemConverter
+                x:Key="SelectedItemConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            Padding="10">
+            <StackLayout
+                Orientation="Horizontal">
+                <Label
+                    Text="Sort by"
+                    VerticalTextAlignment="Center" />
+                <Picker
+                    ItemsSource="{Binding SortOptions}"
+                    SelectedItem="{Binding SelectedOption}"
+                    WidthRequest="175" />
+            </StackLayout>
+            <ListView
+                ItemsSource="{Binding Products}"
+                IsPullToRefreshEnabled="True"
+                RefreshCommand="{Binding RefreshCommand}"
+                IsRefreshing="{Binding IsRefreshing}"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                        EventName="ItemSelected"
+                        Command="{Binding ItemSelectedCommand}"
+                        Converter="{StaticResource SelectedItemConverter}" />
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell
+                            ImageSource="{Binding Image}"
+                            Text="{Binding Name}"
+                            Detail="{Binding PriceSeller}">
+                            <ImageCell.ContextActions>
+                                <MenuItem
+                                    Text="Delete"
+                                    IsDestructive="True"
+                                    Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference ListPage}}"
+                                    CommandParameter="{Binding .}" />
+                            </ImageCell.ContextActions>
+                        </ImageCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
