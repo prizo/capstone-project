@@ -24,6 +24,12 @@ namespace SmartShop.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 
+            // Maps
+            Xamarin.FormsMaps.Init();
+
+            // Google Maps
+            Xamarin.FormsGoogleMaps.Init("AIzaSyAYUkL9MaaGrerPlt1AuihDIQxbhrYrIOc");
+
             // ZXing.Net.Mobile iOS initialization
             global::ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 
