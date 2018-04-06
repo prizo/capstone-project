@@ -15,12 +15,21 @@ namespace SmartShop.Utilities
             var result = JsonConvert.DeserializeObject<dynamic>(response.Content);
             if (result.code == "OK" && result.items[0]["offers"].HasValues)
             {
-                for (int i = 0, j = 0; i < result.items[0]["offers"].Count; i++, j++)
+                for (int i = 0; i < result.items[0]["offers"].Count; i++)
                 {
+                    // Albertsons always shows $0 for price, so skip it
+                    if (result.items[0]["offers"][i]["merchant"] == "Albertsons")
+                    {
+                        continue;
+                    }
+
                     string s = result.items[0]["offers"][i]["price"];
+
                     Product product = new Product
                     {
                         DataURL = "",
+                        // All products will have the same image to remain consistent
+                        Image = result.items[0]["images"][0],
                         Name = result.items[0]["offers"][i]["title"],
                         Price = decimal.Parse(s),
                         Seller = result.items[0]["offers"][i]["merchant"],
@@ -28,11 +37,7 @@ namespace SmartShop.Utilities
                         Link = result.items[0]["offers"][i]["link"],
                         Details = result.items[0]["description"]
                     };
-                    if (j >= result.items[0]["images"].Count)
-                    {
-                        j = 0;
-                    }
-                    product.Image = result.items[0]["images"][j];
+
                     products.Add(product);
                 }
 

@@ -4,5 +4,16 @@
   <uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
 	<uses-permission android:name="android.permission.INTERNET" />
-	<application android:label="SmartShop.Android"></application>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+  <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<application android:label="SmartShop.Android">
+    <meta-data android:name="com.google.android.maps.v2.API_KEY"
+               android:value="AIzaSyCcosNk0VJcS568lqKzvTCgWY_PE2sQ0IM" />
+    <meta-data android:name="com.google.android.gms.version"
+               android:value="@integer/google_play_services_version" />
+  </application>
 </manifest>
