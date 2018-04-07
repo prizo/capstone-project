@@ -59,6 +59,6 @@ namespace SmartShop.ViewModel
         }
 
         public CameraUpdate InitialCameraUpdate { get; set; } =
-            CameraUpdateFactory.NewPositionZoom(new Position(App.Position.Latitude, App.Position.Longitude), 13d);
+            CameraUpdateFactory.NewPositionZoom(new Position(App.Position.Latitude, App.Position.Longitude), 10d);
     }
 }
