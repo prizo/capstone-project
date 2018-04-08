@@ -6,6 +6,9 @@
              x:Class="SmartShop.View.ScannerPage"
              Icon="ic_crop_free_white.png"
              Title="Scanner">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
     <ContentPage.BindingContext>
         <vm:ScannerPageViewModel />
     </ContentPage.BindingContext>

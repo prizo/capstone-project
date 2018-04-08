@@ -8,6 +8,9 @@
              x:Name="ListPage"
              Icon="ic_format_list_bulleted_white.png"
              Title="My List">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
     <ContentPage.BindingContext>
         <vm:ListPageViewModel />
     </ContentPage.BindingContext>
