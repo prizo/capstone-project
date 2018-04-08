@@ -4,6 +4,9 @@
              x:Class="SmartShop.View.CameraPage"
              Icon="ic_photo_camera_white.png"
              Title="Camera">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Camera Page"

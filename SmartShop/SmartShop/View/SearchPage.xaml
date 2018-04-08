@@ -7,6 +7,9 @@
              x:Class="SmartShop.View.SearchPage"
              Icon="ic_search_white.png"
              Title="Search">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
     <ContentPage.BindingContext>
         <vm:SearchPageViewModel />
     </ContentPage.BindingContext>
