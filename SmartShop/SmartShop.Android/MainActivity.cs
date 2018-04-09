@@ -28,6 +28,9 @@ namespace SmartShop.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
+            // Current Activity
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
+
             // Maps
             Xamarin.FormsMaps.Init(this, bundle);
 
@@ -40,11 +43,13 @@ namespace SmartShop.Droid
             LoadApplication(new App());
         }
 
-        // ZXing.Net.Mobile Android permission request
+        // Android permission request
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
+            // For ZXing scanner
             ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
+            // For geolocator and media plugins
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
