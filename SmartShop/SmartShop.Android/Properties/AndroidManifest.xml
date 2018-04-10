@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.SmartShop">
 	<uses-sdk android:minSdkVersion="15" />
   <uses-permission android:name="android.permission.CAMERA" />
@@ -15,5 +15,14 @@
                android:value="AIzaSyCcosNk0VJcS568lqKzvTCgWY_PE2sQ0IM" />
     <meta-data android:name="com.google.android.gms.version"
                android:value="@integer/google_play_services_version" />
+    
+    <provider android:name="android.support.v4.content.FileProvider"
+              android:authorities="${applicationId}.fileprovider"
+              android:exported="false"
+              android:grantUriPermissions="true">
+
+              <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                         android:resource="@xml/file_paths"></meta-data>
+    </provider>
   </application>
 </manifest>

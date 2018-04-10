@@ -1,17 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartShop.ViewModel"
              x:Class="SmartShop.View.CameraPage"
              Icon="ic_photo_camera_white.png"
              Title="Camera">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
     </ContentPage.Padding>
+    <ContentPage.BindingContext>
+        <vm:CameraPageViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Camera Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label
+                Text="Take a photo of a product or select a photo from your gallery. For best results, ensure the photo contains text or a logo of the product."
+                Grid.Row="0"
+                Grid.ColumnSpan="2" />
+            <StackLayout
+                Padding="10"
+                VerticalOptions="Center"
+                Grid.Row="1"
+                Grid.ColumnSpan="2">
+                <Image
+                    Source="{Binding Source}" />
+                <ActivityIndicator
+                    IsRunning="{Binding IsRunning}"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2" />
+                <Label
+                    Text="Processing image..."
+                    HorizontalTextAlignment="Center"
+                    IsVisible="{Binding IsVisible}"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2" />
+            </StackLayout>
+            <Button
+                Text="Take Photo"
+                Command="{Binding TakePhotoCommand}"
+                Grid.Row="2" 
+                Grid.Column="0" />
+            <Button 
+                Text="Select Photo"
+                Command="{Binding SelectPhotoCommand}"
+                Grid.Row="2" 
+                Grid.Column="1" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
