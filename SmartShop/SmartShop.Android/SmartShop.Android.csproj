@@ -251,7 +251,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\splash.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\placeholder.png" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\xml\file_paths.xml" />
   </ItemGroup>

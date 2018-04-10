@@ -14,21 +14,41 @@
     <ContentPage.Content>
         <Grid Padding="10">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-
-            <Image 
-                x:Name="image" />
+            <Label
+                Text="Take a photo of a product or select a photo from your gallery. For best results, ensure the photo contains text or a logo of the product."
+                Grid.Row="0"
+                Grid.ColumnSpan="2" />
+            <StackLayout
+                Padding="10"
+                VerticalOptions="Center"
+                Grid.Row="1"
+                Grid.ColumnSpan="2">
+                <Image
+                    Source="{Binding Source}" />
+                <ActivityIndicator
+                    IsRunning="{Binding IsRunning}"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2" />
+                <Label
+                    Text="Processing image..."
+                    HorizontalTextAlignment="Center"
+                    IsVisible="{Binding IsVisible}"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2" />
+            </StackLayout>
             <Button
                 Text="Take Photo"
                 Command="{Binding TakePhotoCommand}"
-                Grid.Row="1" 
+                Grid.Row="2" 
                 Grid.Column="0" />
             <Button 
                 Text="Select Photo"
                 Command="{Binding SelectPhotoCommand}"
-                Grid.Row="1" 
+                Grid.Row="2" 
                 Grid.Column="1" />
         </Grid>
     </ContentPage.Content>
