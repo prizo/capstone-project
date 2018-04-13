@@ -179,7 +179,7 @@ namespace SmartShop.ViewModel
             // Create the service
             var service = new VisionService(new BaseClientService.Initializer
             {
-                ApiKey = "AIzaSyA72dkhD9FJZUt29wsFWfwqZGtTds8jsp0"
+                ApiKey = ""
             });
 
             var bytes = File.ReadAllBytes(path);
