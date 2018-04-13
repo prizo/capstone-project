@@ -1,10 +1,12 @@
-﻿using RestSharp;
+﻿using Plugin.Connectivity;
+using RestSharp;
 using SmartShop.Model;
 using SmartShop.Utilities;
 using SmartShop.View;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -16,21 +18,6 @@ namespace SmartShop.ViewModel
         {
             ScanResultCommand = new Command(HandleScanResult);
             FlashCommand = new Command(HandleFlash);
-        }
-
-        private bool _isScanning = true;
-
-        public bool IsScanning
-        {
-            get
-            {
-                return _isScanning;
-            }
-            set
-            {
-                _isScanning = value;
-                OnPropertyChanged();
-            }
         }
 
         private bool _isAnalyzing = true;
@@ -67,10 +54,16 @@ namespace SmartShop.ViewModel
 
         public ICommand ScanResultCommand { get; private set; }
 
-        private void HandleScanResult()
+        private async void HandleScanResult()
         {
-            //IsScanning = false;
-            //IsAnalyzing = false;
+            // Check for internet connection
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                await Application.Current.MainPage.DisplayAlert("", "No internet connection", "OK");
+                return;
+            }
+
+            IsAnalyzing = false;
 
             IList<Product> products = null;
             string query = Result.Text.Trim();
@@ -86,13 +79,16 @@ namespace SmartShop.ViewModel
             {
                 if (products != null && products.Count > 0)
                 {
-                    await Application.Current.MainPage.Navigation.
-                        PushModalAsync(new NavigationPage(new ResultPage(products)));
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new NavigationPage(new ResultPage(products)));
                 }
                 else
                 {
                     await Application.Current.MainPage.DisplayAlert("", "Product not found", "OK");
                 }
+
+                // Five second delay to slow down analyzer
+                await Task.Delay(5000);
+                IsAnalyzing = true;
             });
         }
 

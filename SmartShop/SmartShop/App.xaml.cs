@@ -29,13 +29,13 @@ namespace SmartShop
             {
                 if (position == null)
                 {
-                    SetCurrentPosition();
+                    GetCurrentPosition();
                 }
                 return position;
             }
         }
 
-        public static async void SetCurrentPosition()
+        public static async void GetCurrentPosition()
         {
             var locator = CrossGeolocator.Current;
             locator.DesiredAccuracy = 50;
@@ -49,7 +49,7 @@ namespace SmartShop
 
 			MainPage = new MainPage();
 
-            SetCurrentPosition();
+            GetCurrentPosition();
 		}
 
 		protected override void OnStart ()

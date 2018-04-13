@@ -18,7 +18,7 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                 <forms:ZXingScannerView
-                    IsScanning="{Binding IsScanning}"
+                    IsScanning="True"
                     IsAnalyzing="{Binding IsAnalyzing}"
                     IsTorchOn="{Binding IsTorchOn}"
                     Result="{Binding Result, Mode=TwoWay}"

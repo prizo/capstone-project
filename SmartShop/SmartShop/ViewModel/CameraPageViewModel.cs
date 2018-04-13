@@ -1,6 +1,7 @@
 ﻿using Google.Apis.Services;
 using Google.Apis.Vision.v1;
 using Google.Apis.Vision.v1.Data;
+using Plugin.Connectivity;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using SmartShop.Model;
@@ -10,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -79,7 +79,7 @@ namespace SmartShop.ViewModel
 
             if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
             {
-                await Application.Current.MainPage.DisplayAlert("No Camera", "No camera available.", "OK");
+                await Application.Current.MainPage.DisplayAlert("", "No camera available", "OK");
                 return;
             }
 
@@ -100,7 +100,7 @@ namespace SmartShop.ViewModel
 
             if (!CrossMedia.Current.IsPickPhotoSupported)
             {
-                await Application.Current.MainPage.DisplayAlert("No Upload", "Selecting photos not available.", "OK");
+                await Application.Current.MainPage.DisplayAlert("", "Selecting photos not available", "OK");
                 return;
             }
 
@@ -111,6 +111,13 @@ namespace SmartShop.ViewModel
 
         private async void ProcessImage(MediaFile file)
         {
+            // Check for internet connection
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                await Application.Current.MainPage.DisplayAlert("", "No internet connection", "OK");
+                return;
+            }
+
             if (file == null)
                 return;
 
@@ -172,7 +179,7 @@ namespace SmartShop.ViewModel
             // Create the service
             var service = new VisionService(new BaseClientService.Initializer
             {
-                ApiKey = ""
+                ApiKey = "AIzaSyA72dkhD9FJZUt29wsFWfwqZGtTds8jsp0"
             });
 
             var bytes = File.ReadAllBytes(path);
