@@ -1,4 +1,5 @@
-﻿using SmartShop.Model;
+﻿using Plugin.Connectivity;
+using SmartShop.Model;
 using SmartShop.Utilities;
 using SmartShop.View;
 using System;
@@ -73,8 +74,15 @@ namespace SmartShop.ViewModel
 
         public ICommand SearchCommand { get; private set; }
 
-        private void HandleSearch(string text)
+        private async void HandleSearch(string text)
         {
+            // Check for internet connection
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                await Application.Current.MainPage.DisplayAlert("", "No internet connection", "OK");
+                return;
+            }
+
             string document = "";
             IList<Product> products = null;
 
@@ -100,6 +108,13 @@ namespace SmartShop.ViewModel
 
         private async void HandleItemSelected(Product product)
         {
+            // Check for internet connection
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                await Application.Current.MainPage.DisplayAlert("", "No internet connection", "OK");
+                return;
+            }
+
             if (SelectedItem != null)
             {
                 SelectedItem = null;
@@ -116,8 +131,7 @@ namespace SmartShop.ViewModel
                     new ProductExtractor().ExtractDetails(product, document);
                 }
 
-                await Application.Current.MainPage.Navigation.
-                    PushModalAsync(new NavigationPage(new ProductPage(product, true)));
+                await Application.Current.MainPage.Navigation.PushModalAsync(new NavigationPage(new ProductPage(product, true)));
             }
         }
 

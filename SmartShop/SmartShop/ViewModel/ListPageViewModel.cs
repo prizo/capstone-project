@@ -1,4 +1,5 @@
-﻿using SmartShop.Model;
+﻿using Plugin.Connectivity;
+using SmartShop.Model;
 using SmartShop.Utilities;
 using SmartShop.View;
 using System.Collections.Generic;
@@ -101,6 +102,13 @@ namespace SmartShop.ViewModel
 
         private async void HandleItemSelected(Product product)
         {
+            // Check for internet connection
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                await Application.Current.MainPage.DisplayAlert("", "No internet connection", "OK");
+                return;
+            }
+
             if (SelectedItem != null)
             {
                 SelectedItem = null;

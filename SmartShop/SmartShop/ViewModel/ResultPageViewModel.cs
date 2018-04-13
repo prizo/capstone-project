@@ -1,4 +1,5 @@
-﻿using SmartShop.Model;
+﻿using Plugin.Connectivity;
+using SmartShop.Model;
 using SmartShop.Utilities;
 using SmartShop.View;
 using System.Collections.Generic;
@@ -82,12 +83,34 @@ namespace SmartShop.ViewModel
 
         private async void HandleItemSelected(Product product)
         {
+            // Check for internet connection
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                await Application.Current.MainPage.DisplayAlert("", "No internet connection", "OK");
+                return;
+            }
+
             if (SelectedItem != null)
             {
                 SelectedItem = null;
 
-                await Application.Current.MainPage.Navigation.
-                    PushModalAsync(new NavigationPage(new ProductPage(product, true)));
+                // Bing product needs to have link extracted
+                if (product.Link == "")
+                {
+                    string document = "";
+
+                    if (product.DataURL != null && product.DataURL != "")
+                    {
+                        document = BingWebRequest.SendRequest(product.DataURL);
+                    }
+
+                    if (document != null && document != "")
+                    {
+                        new ProductExtractor().ExtractDetails(product, document);
+                    }
+                }
+
+                await Application.Current.MainPage.Navigation.PushModalAsync(new NavigationPage(new ProductPage(product, true)));
             }
         }
 
