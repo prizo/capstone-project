@@ -12,23 +12,28 @@
         <vm:CameraPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid Padding="10">
+        <Grid
+            Padding="10"
+            BackgroundColor="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label
-                Text="Take a photo of a product or select a photo from your gallery. For best results, ensure the photo contains text or a logo of the product."
+                Text="Take a photo of a product or select a photo from your gallery. For best results, ensure the photo contains text."
+                HorizontalTextAlignment="Center"
                 Grid.Row="0"
                 Grid.ColumnSpan="2" />
             <StackLayout
-                Padding="10"
+                Padding="15"
                 VerticalOptions="Center"
                 Grid.Row="1"
                 Grid.ColumnSpan="2">
                 <Image
-                    Source="{Binding Source}" />
+                    Source="{Binding Source}"
+                    HeightRequest="300"
+                    WidthRequest="300" />
                 <ActivityIndicator
                     IsRunning="{Binding IsRunning}"
                     Grid.Row="1"

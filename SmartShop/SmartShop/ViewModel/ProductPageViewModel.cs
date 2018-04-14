@@ -21,20 +21,6 @@ namespace SmartShop.ViewModel
 
         public bool IsEnabled { get; set; }
 
-        private string _saveText;
-
-        public string SaveText
-        {
-            get
-            {
-                return IsEnabled ? "Save To List" : "Saved";
-            }
-            set
-            {
-                _saveText = value;
-            }
-        }
-
         public ICommand BackCommand { get; private set; }
 
         private async void HandleBack()

@@ -25,17 +25,17 @@
                     Text="{Binding Product.Price, StringFormat='${0:F2}'}" />
                 <Label
                     Text="{Binding Product.Seller}" />
-                <StackLayout
-                    Orientation="Horizontal"
-                    HorizontalOptions="CenterAndExpand">
+                <Grid>
                     <Button
                         Text="Shop"
-                        Command="{Binding ShopCommand}" />
+                        Command="{Binding ShopCommand}"
+                        Grid.Column="0" />
                     <Button
-                        Text="{Binding SaveText}"
+                        Text="Save To List"
                         Command="{Binding SaveCommand}"
-                        IsEnabled="{Binding IsEnabled}" />
-                </StackLayout>
+                        IsEnabled="{Binding IsEnabled}"
+                        Grid.Column="1" />
+                </Grid>
                 <Label
                     Text="{Binding Product.Details}" />
                 <maps:Map

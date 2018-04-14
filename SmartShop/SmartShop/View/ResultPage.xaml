@@ -30,6 +30,7 @@
                     WidthRequest="175" />
             </StackLayout>
             <ListView
+                CachingStrategy="RecycleElement"
                 ItemsSource="{Binding Products}"
                 SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                 <ListView.Behaviors>
