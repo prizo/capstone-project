@@ -33,6 +33,7 @@
                 Padding="10"
                 Orientation="Horizontal">
                 <Button
+                    x:Name="button"
                     Text="{Binding FlashText}"
                     TextColor="Gray"
                     BackgroundColor="Transparent"
@@ -40,6 +41,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center" />
                 <Label
+                    x:Name="label"
                     Text="Hold your phone up to the barcode"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center" />

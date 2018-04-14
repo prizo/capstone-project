@@ -9,6 +9,13 @@ namespace SmartShop.View
         public ScannerPage ()
 		{
             InitializeComponent ();
+
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                BackgroundColor = Color.DodgerBlue;
+                button.TextColor = Color.White;
+                label.TextColor = Color.White;
+            }
         }
     }
 }
