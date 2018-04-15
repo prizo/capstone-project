@@ -50,8 +50,7 @@ namespace SmartShop.ViewModel
             }
         }
 
-        public ObservableCollection<string> SortOptions { get; set; } =
-            new ObservableCollection<string>(new List<string> { "Name", "Price: Low to High", "Price: High to Low", "Seller" });
+        public ObservableCollection<string> SortOptions { get; set; } = new ObservableCollection<string>(Utilities.SortOptions.options);
 
         private string _selectedOption;
 

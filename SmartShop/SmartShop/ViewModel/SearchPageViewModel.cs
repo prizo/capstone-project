@@ -50,8 +50,7 @@ namespace SmartShop.ViewModel
             }
         }
 
-        public ObservableCollection<string> SortOptions { get; set; } = 
-            new ObservableCollection<string>(new List<string> { "Name", "Price: Low to High", "Price: High to Low", "Seller" });
+        public ObservableCollection<string> SortOptions { get; set; } = new ObservableCollection<string>(Utilities.SortOptions.options);
 
         private string _selectedOption;
 
@@ -97,10 +96,14 @@ namespace SmartShop.ViewModel
                 products = new ProductExtractor().ExtractProducts(document);
             }
 
-            if (products != null && products.Count > 0) // TODO: Display 'not found' alert if products is empty
+            if (products != null && products.Count > 0)
             {
                 Products = new ObservableCollection<Product>(products);
                 SelectedOption = null;
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("", "No results", "OK");
             }
         }
 

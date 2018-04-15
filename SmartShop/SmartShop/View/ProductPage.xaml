@@ -40,7 +40,6 @@
                     Text="{Binding Product.Details}" />
                 <maps:Map
                     x:Name="map"
-                    InitialCameraUpdate="{Binding InitialCameraUpdate}"
                     MyLocationEnabled="True"
                     HasScrollEnabled="True"
                     WidthRequest="300"

@@ -18,15 +18,18 @@ namespace SmartShop.View
 			InitializeComponent ();
             BindingContext = new ProductPageViewModel(product, isEnabled);
 
-            // Hide map for online sellers
-            if (product.Seller.Contains(".com") || product.Seller.Contains("eBay"))
+            // Disable the map if position is null or if the seller is online only
+            if (App.Position == null || product.Seller.Contains(".com") || product.Seller.Contains("eBay"))
             {
                 map.IsEnabled = false;
                 map.IsVisible = false;
             }
             else
             {
-                // Search for nearby stores from product.Seller
+                // Set the map to user's current location
+                map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(App.Position.Latitude, App.Position.Longitude), 10d);
+
+                // Search for nearby stores from the seller
                 SearchNearby(product.Seller);
             }
         }

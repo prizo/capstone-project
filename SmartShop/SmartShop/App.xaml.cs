@@ -1,5 +1,7 @@
 ﻿using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using SmartShop.Data;
 using SmartShop.Utilities;
 using SmartShop.View;
@@ -23,26 +25,23 @@ namespace SmartShop
             }
         }
 
-        static Position position;
-
-        public static Position Position
-        {
-            get
-            {
-                if (position == null)
-                {
-                    GetCurrentPosition();
-                }
-                return position;
-            }
-        }
+        public static Position Position { get; set; }
 
         public static async void GetCurrentPosition()
         {
-            var locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 50;
+            var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
 
-            position = await locator.GetPositionAsync();
+            if (status == PermissionStatus.Granted)
+            {
+                var locator = CrossGeolocator.Current;
+                locator.DesiredAccuracy = 50;
+
+                Position = await locator.GetPositionAsync();
+            }
+            else
+            {
+                Position = null;
+            }
         }
 
         public string IsFirstTime
