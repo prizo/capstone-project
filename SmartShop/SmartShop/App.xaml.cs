@@ -1,6 +1,8 @@
 ﻿using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using SmartShop.Data;
+using SmartShop.Utilities;
+using SmartShop.View;
 using Xamarin.Forms;
 
 namespace SmartShop
@@ -43,11 +45,35 @@ namespace SmartShop
             position = await locator.GetPositionAsync();
         }
 
+        public string IsFirstTime
+        {
+            get
+            {
+                return Settings.GeneralSettings;
+            }
+            set
+            {
+                if (Settings.GeneralSettings == value)
+                    return;
+
+                Settings.GeneralSettings = value;
+            }
+        }
+
         public App ()
 		{
 			InitializeComponent();
 
-			MainPage = new MainPage();
+            // If the app is running for the first time, show a landing page
+            if (IsFirstTime == "yes")
+            {
+                IsFirstTime = "no";
+                MainPage = new LandingPage();
+            }
+            else
+            {
+                MainPage = new MainPage();
+            }
 
             GetCurrentPosition();
 		}

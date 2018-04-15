@@ -22,6 +22,7 @@
             </Grid.RowDefinitions>
             <Label
                 Text="Take a photo of a product or select a photo from your gallery. For best results, ensure the photo contains text."
+                Margin="0, 10, 0, 0"
                 HorizontalTextAlignment="Center"
                 Grid.Row="0"
                 Grid.ColumnSpan="2" />

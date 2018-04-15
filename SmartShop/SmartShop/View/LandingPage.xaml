@@ -1,15 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartShop.ViewModel"
              x:Class="SmartShop.View.LandingPage">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
     </ContentPage.Padding>
+    <ContentPage.BindingContext>
+        <vm:LandingPageViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid
+            Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label
+                Text="Welcome to SmartShop!"
+                FontSize="Medium"
+                Margin="0, 40, 0, 0"
+                HorizontalTextAlignment="Center"
+                Grid.Row="0"
+                Grid.ColumnSpan="3" />
+            <StackLayout
+                VerticalOptions="Center"
+                Grid.Row="1"
+                Grid.ColumnSpan="3">
+                <Image
+                    Source="scan.png"
+                    HeightRequest="100"
+                    WidthRequest="100" />
+                <Label
+                    Text="Scan a barcode"
+                    HorizontalTextAlignment="Center" />
+                <Image
+                    Source="takepicture.png"
+                    HeightRequest="100"
+                    WidthRequest="100" />
+                <Label
+                    Text="Take a picture"
+                    HorizontalTextAlignment="Center" />
+                <Image
+                    Source="search.png"
+                    HeightRequest="100"
+                    WidthRequest="100" />
+                <Label
+                    Text="Search for a product"
+                    HorizontalTextAlignment="Center" />
+            </StackLayout>
+            <Button
+                Text="Start"
+                Command="{Binding StartCommand}"
+                Grid.Row="2"
+                Grid.Column="2"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
