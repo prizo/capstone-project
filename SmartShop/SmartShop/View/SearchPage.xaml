@@ -21,13 +21,14 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout
-            Padding="10">
+            x:Name="outerLayout">
             <SearchBar
                 x:Name="SearchBar"
                 Placeholder="Search for a product"
                 SearchCommand="{Binding SearchCommand}"
                 SearchCommandParameter="{Binding Text, Source={x:Reference SearchBar}}" />
             <StackLayout
+                x:Name="innerLayout"
                 Orientation="Horizontal">
                 <Label
                     Text="Sort by"
