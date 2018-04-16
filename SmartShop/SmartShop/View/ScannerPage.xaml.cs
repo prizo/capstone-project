@@ -9,6 +9,8 @@ namespace SmartShop.View
         public ScannerPage ()
 		{
             InitializeComponent ();
+
+            BackgroundColor = Color.Default;
         }
     }
 }
