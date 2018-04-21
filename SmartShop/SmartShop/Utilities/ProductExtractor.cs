@@ -84,8 +84,8 @@ namespace SmartShop.Utilities
 
         private string GetName(int i)
         {
-            node = infoNodes[i].SelectSingleNode(".//div[@class='br-productTitle br-title']") ??
-                itemNodes[i].SelectSingleNode(".//div[@class='br-pdItemName br-standardText']");
+            node = itemNodes[i].SelectSingleNode(".//div[@class='br-pdItemName br-standardText']") ??
+                infoNodes[i].SelectSingleNode(".//a[@class='br-voidlink']");
             return node.InnerHtml.Trim(); 
         }
 
