@@ -1,5 +1,4 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.Views;
 using Android.OS;
@@ -26,9 +25,6 @@ namespace SmartShop.Droid
 
             // Current Activity
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
-
-            // Maps
-            Xamarin.FormsMaps.Init(this, bundle);
 
             // Google Maps
             Xamarin.FormsGoogleMaps.Init(this, bundle);

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
 using UIKit;
 
 namespace SmartShop.iOS
@@ -23,9 +19,6 @@ namespace SmartShop.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-
-            // Maps
-            Xamarin.FormsMaps.Init();
 
             // Google Maps
             Xamarin.FormsGoogleMaps.Init("AIzaSyAYUkL9MaaGrerPlt1AuihDIQxbhrYrIOc");
